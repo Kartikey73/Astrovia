@@ -1,0 +1,42 @@
+{
+  "name": "Planet Data Update",
+  "trigger": "cron",
+  "cron": "0 0 * * 0",
+  "steps": [
+    {
+      "name": "Fetch APOD",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api.nasa.gov/planetary/apod",
+        "method": "GET",
+        "queryParameters": {
+          "api_key": "={{$env.VITE_NASA_API_KEY}}"
+        }
+      }
+    },
+    {
+      "name": "Validate Response",
+      "type": "if",
+      "condition": "{{$json.success}}"
+    },
+    {
+      "name": "Transform JSON",
+      "type": "function",
+      "code": "// Transform NASA APOD data for Supabase celestial_events table\nreturn [{ json: { \n  title: $json.title,\n  event_type: 'apod',\n  description: $json.explanation,\n  event_date: new Date($json.date),\n  source_url: $json.url,\n  updated_at: new Date().toISOString()\n } }]"
+    },
+    {
+      "name": "Update Supabase",
+      "type": "supabase",
+      "parameters": {
+        "operation": "upsert",
+        "table": "celestial_events",
+        "onConflict": "title"
+      }
+    },
+    {
+      "name": "Log Success",
+      "type": "function",
+      "code": "// Log result to n8n execution log"
+    }
+  ]
+}

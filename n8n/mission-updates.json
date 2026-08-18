@@ -1,0 +1,35 @@
+{
+  "name": "Mission Updates",
+  "trigger": "cron",
+  "cron": "0 0 1 * *",
+  "steps": [
+    {
+      "name": "Fetch Mission Data",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api.nasa.gov/missions",
+        "method": "GET",
+        "queryParameters": {
+          "api_key": "={{$env.VITE_NASA_API_KEY}}"
+        }
+      }
+    },
+    {
+      "name": "Process Data",
+      "type": "function",
+      "code": "// Process mission data for Supabase upsert\nreturn $json.missions.map(mission => ({\n  json: {\n    name: mission.name,\n    agency: mission.agency,\n    target: mission.target,\n    launch_date: mission.launch_date,\n    status: mission.status,\n    description: mission.description,\n    image_url: mission.image_url,\n    source_url: mission.source_url,\n    updated_at: new Date().toISOString()\n  }\n}))\n",
+      "parameters" : {
+        "batchSize": 100
+      }
+    },
+    {
+      "name": "Update Supabase",
+      "type": "supabase",
+      "parameters": {
+        "operation": "upsert",
+        "table": "missions",
+        "onConflict": "name"
+      }
+    }
+  ]
+}

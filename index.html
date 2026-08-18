@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASTRAVIA</title>
+    
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <!-- UI -->
+    <div class="ui">
+
+        <!-- =====================================================
+             ASTRAVIA — LEFT SIDE HERO & PLANET DETAIL ZONE
+             ===================================================== -->
+        <div class="left-hero-container">
+            <div class="brand">
+                <div class="brand-name">ASTRAVIA</div>
+                <div class="brand-line"></div>
+                <div class="brand-subtitle">BEYOND THE KNOWN</div>
+            </div>
+
+            <!-- INITIAL HERO STATE (Visible at scroll = 0, fades out on scroll) -->
+            <div class="hero-title visible" id="heroTitle">
+                <div class="hero-kicker">A JOURNEY THROUGH THE COSMOS</div>
+                <div class="hero-main">EXPLORE</div>
+                <div class="hero-main hero-beyond">BEYOND</div>
+                <div class="hero-description">
+                    Discover worlds beyond Earth through<br>
+                    an immersive 3D journey.
+                </div>
+            </div>
+
+            <!-- ACTIVE PLANET DETAIL PANEL (Occupies the exact space of the hero on scroll > 0) -->
+            <div class="planet-info-panel hidden" id="planetInfoPanel">
+                <div class="planet-info-kicker" id="planetKicker">ORBITAL SYSTEM / 01</div>
+                <h1 class="planet-info-title" id="planetTitle">EARTH</h1>
+                <div class="planet-info-subtitle" id="planetSubtitle">THE BLUE PLANET</div>
+
+                <div class="planet-specs-list" id="planetSpecsList">
+                    <div class="planet-spec-item">
+                        <span class="spec-label">Atmosphere</span>
+                        <strong class="spec-value">78% Nitrogen, 21% Oxygen</strong>
+                    </div>
+                    <div class="planet-spec-item">
+                        <span class="spec-label">Surface</span>
+                        <strong class="spec-value">71% Liquid Oceans</strong>
+                    </div>
+                    <div class="planet-spec-item">
+                        <span class="spec-label">Rotation</span>
+                        <strong class="spec-value">23.9 Hours</strong>
+                    </div>
+                    <div class="planet-spec-item">
+                        <span class="spec-label">Notable Feature</span>
+                        <strong class="spec-value">Abundant Liquid Water & Biosphere</strong>
+                    </div>
+                </div>
+
+                <button class="planet-dossier-trigger" id="openDossierBtn" type="button">
+                    <span>EXPEDITION DOSSIER</span>
+                    <span class="trigger-arrow">✦</span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="floating-taskbar" id="floatingTaskbar">
+
+    
+    
+<span class="task-divider"></span>
+
+
+    <button class="task-item" type="button" data-task="missions">
+
+        <span class="task-icon">✦</span>
+
+        <span class="task-label">MISSIONS</span>
+
+    </button>
+
+<span class="task-divider"></span>
+
+    <button class="task-item" type="button" data-task="telescope">
+
+        <span class="task-icon">◌</span>
+
+        <span class="task-label">VIRTUAL TELESCOPE</span>
+
+    </button>
+
+<span class="task-divider"></span>
+
+    <button class="task-item" type="button" data-task="ai">
+
+        <span class="task-icon">⌁</span>
+
+        <span class="task-label">AI ASSISTANT</span>
+
+    </button>
+
+
+    <span class="task-divider"></span>
+
+
+    <button class="task-item" type="button" data-task="login">
+
+        <span class="task-icon">⚙</span>
+
+        <span class="task-label">LOGIN / SIGN UP</span>
+
+    </button>
+<span class="task-divider"></span>
+
+
+    <button class="task-item" type="button" data-task="setting">
+
+        <span class="task-icon">⚙</span>
+
+        <span class="task-label">SETTING </span>
+
+    </button>
+</nav>
+
+<!-- =====================================================
+     ASTRAVIA — SETTINGS PANEL
+     ===================================================== -->
+
+<div class="settings-panel" id="settingsPanel">
+
+    <div class="settings-header">
+
+        <div>
+            <span class="settings-eyebrow">
+                ASTRAVIA
+            </span>
+
+            <h2>SETTINGS</h2>
+        </div>
+
+        <button
+            class="settings-close"
+            id="settingsClose"
+            type="button"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="settings-section">
+
+        <div class="settings-section-title">
+            EXPERIENCE
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>MOTION</strong>
+                <span>Animate the orbital system</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="motion"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>SOUND</strong>
+                <span>Interface and ambient sound</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="sound"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>PARALLAX</strong>
+                <span>Mouse-based camera movement</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="parallax"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-section">
+
+        <div class="settings-section-title">
+            VISUALS
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>STARS</strong>
+                <span>Show background star field</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="stars"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>PLANET SPIN</strong>
+                <span>Rotate planets on their axis</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="planetSpin"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>ORBIT LINES</strong>
+                <span>Show orbital trajectory</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="orbitLines"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>ATMOSPHERE</strong>
+                <span>Planet atmospheric glow</span>
+            </div>
+
+            <button
+                class="setting-switch active"
+                data-setting="atmosphere"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-section">
+
+        <div class="settings-section-title">
+            PERFORMANCE
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>PERFORMANCE MODE</strong>
+                <span>Reduce visual effects</span>
+            </div>
+
+            <button
+                class="setting-switch"
+                data-setting="performance"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div>
+                <strong>FULLSCREEN</strong>
+                <span>Enter immersive fullscreen</span>
+            </div>
+
+            <button
+                class="setting-switch"
+                data-setting="fullscreen"
+                type="button"
+            >
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="settings-reset"
+        id="resetSettings"
+        type="button"
+    >
+        RESET SETTINGS
+    </button>
+
+</div>
+
+<!-- =====================================================
+     ASTRAVIA — MISSIONS & NASA DATA INTELLIGENCE MODAL
+     ===================================================== -->
+<div class="astravia-modal" id="missionsModal">
+    <div class="modal-header">
+        <div>
+            <span class="modal-eyebrow">DEEP SPACE MISSIONS & TELEMETRY</span>
+            <h2>NASA INTELLIGENCE</h2>
+        </div>
+        <button class="modal-close" data-close-modal="missionsModal" type="button">×</button>
+    </div>
+
+    <div class="missions-tabs">
+        <button class="mission-tab active" data-mission-view="apod" type="button">APOD DAILY</button>
+        <button class="mission-tab" data-mission-view="neo" type="button">NEO ASTEROIDS</button>
+        <button class="mission-tab" data-mission-view="mars" type="button">MARS ROVERS</button>
+    </div>
+
+    <div class="mission-view active" id="viewApod">
+        <div class="nasaLabel">ASTRONOMY PICTURE OF THE DAY</div>
+        <h3 id="nasaTitle">Loading NASA APOD...</h3>
+        <div class="nasaImageWrapper">
+            <img id="nasaImage" alt="NASA APOD" src="" />
+        </div>
+        <div id="nasaDate"></div>
+        <p id="nasaExplanation"></p>
+    </div>
+
+    <div class="mission-view" id="viewNeo">
+        <div class="nasaLabel">NEAR EARTH OBJECT TRACKER (ORBITAL DISTANCE FEED)</div>
+        <div class="neo-list" id="neoList">
+            <div class="neo-item">
+                <div class="neo-header">
+                    <strong>2024 BX1 (APOLLO ASTEROID)</strong>
+                    <span class="neo-badge safe">MONITORED</span>
+                </div>
+                <div class="neo-stats">
+                    <span>Miss Distance: <strong>4.8 Lunar Distances (1.85M km)</strong></span>
+                    <span>Velocity: <strong>14.2 km/s (51,120 km/h)</strong></span>
+                    <span>Diameter: <strong>Est. 45 - 110 m</strong></span>
+                </div>
+            </div>
+            <div class="neo-item">
+                <div class="neo-header">
+                    <strong>99942 APOPHIS</strong>
+                    <span class="neo-badge warning">CLOSE FLYBY (2029)</span>
+                </div>
+                <div class="neo-stats">
+                    <span>Miss Distance: <strong>31,600 km (Inside Geosync Orbit)</strong></span>
+                    <span>Velocity: <strong>30.7 km/s</strong></span>
+                    <span>Diameter: <strong>Est. 340 m</strong></span>
+                </div>
+            </div>
+            <div class="neo-item">
+                <div class="neo-header">
+                    <strong>101955 BENNU</strong>
+                    <span class="neo-badge safe">OSIRIS-REx SAMPLED</span>
+                </div>
+                <div class="neo-stats">
+                    <span>Carbonaceous Chondrite: <strong>Sample Returned 2023</strong></span>
+                    <span>Orbit: <strong>Apollo Group</strong></span>
+                    <span>Diameter: <strong>Est. 490 m</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mission-view" id="viewMars">
+        <div class="nasaLabel">MARS SURFACE EXPEDITIONS (PERSEVERANCE & CURIOSITY)</div>
+        <div class="mars-rover-grid">
+            <div class="rover-card">
+                <div class="rover-tag">PERSEVERANCE // SOL 1042</div>
+                <h4>JEZERO CRATER DELTA</h4>
+                <p>Investigating ancient deltaic mudstones for carbonaceous fossil biosignatures and caching sample tubes for Mars Sample Return.</p>
+            </div>
+            <div class="rover-card">
+                <div class="rover-tag">CURIOSITY // SOL 4100</div>
+                <h4>MOUNT SHARP STRATIGRAPHY</h4>
+                <p>Climbing sulfate-bearing layers of Mount Sharp, documenting the historical transition from ancient Martian lakes to arid dunes.</p>
+            </div>
+            <div class="rover-card">
+                <div class="rover-tag">INGENUITY (MISSION RETIRED)</div>
+                <h4>72 FLIGHTS LOGGED</h4>
+                <p>First powered aircraft on another world, demonstrating aerial flight in Mars' ultrathin atmosphere.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+     ASTRAVIA — VIRTUAL TELESCOPE MODAL
+     ===================================================== -->
+<div class="astravia-modal telescope-modal" id="telescopeModal">
+    <div class="modal-header">
+        <div>
+            <span class="modal-eyebrow">DEEP SPACE OBSERVATORY</span>
+            <h2>VIRTUAL TELESCOPE</h2>
+        </div>
+        <button class="modal-close" data-close-modal="telescopeModal" type="button">×</button>
+    </div>
+
+    <div class="telescope-provenance">
+        <span>ARCHIVAL SPACE OBSERVATORY DATA</span>
+        <span class="provenance-badge">NASA / ESA / CSA / STScI</span>
+    </div>
+
+    <div class="telescope-targets-nav">
+        <button class="target-btn active" data-target="pillars" type="button">PILLARS OF CREATION</button>
+        <button class="target-btn" data-target="andromeda" type="button">ANDROMEDA (M31)</button>
+        <button class="target-btn" data-target="crab" type="button">CRAB NEBULA (M1)</button>
+        <button class="target-btn" data-target="orion" type="button">ORION NEBULA (M42)</button>
+        <button class="target-btn" data-target="deepfield" type="button">JWST DEEP FIELD</button>
+    </div>
+
+    <div class="telescope-viewfinder">
+        <div class="reticle-horizontal"></div>
+        <div class="reticle-vertical"></div>
+        <div class="reticle-circle"></div>
+        <div class="reticle-coords" id="targetCoords">RA: 18h 18m 48s // DEC: -13° 49′</div>
+        <div class="viewfinder-lens" id="telescopeLens">
+            <h3 id="targetHeading">Pillars of Creation (Eagle Nebula)</h3>
+            <p id="targetDetails">6,500 light-years from Earth in the constellation Serpens. Colossal columns of interstellar gas and dust where new proto-stars condense inside molecular clouds.</p>
+        </div>
+    </div>
+
+    <div class="telescope-controls-bar">
+        <div class="filter-group">
+            <span class="ctrl-label">SPECTRAL BAND</span>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="visible" type="button">VISIBLE</button>
+                <button class="filter-btn" data-filter="infrared" type="button">INFRARED</button>
+                <button class="filter-btn" data-filter="xray" type="button">X-RAY</button>
+            </div>
+        </div>
+        <div class="filter-group">
+            <span class="ctrl-label">OPTICAL ZOOM</span>
+            <div class="zoom-indicator" id="zoomVal">1200x</div>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+     ASTRAVIA — AI SPACE TUTOR MODAL
+     ===================================================== -->
+<div class="astravia-modal ai-modal" id="aiModal">
+    <div class="modal-header">
+        <div>
+            <span class="modal-eyebrow">SYNTHETIC ASTRONOMICAL INTELLIGENCE</span>
+            <h2>AI SPACE TUTOR</h2>
+        </div>
+        <button class="modal-close" data-close-modal="aiModal" type="button">×</button>
+    </div>
+
+    <div class="ai-chat-history" id="aiChatHistory">
+        <div class="chat-msg bot">
+            <div class="chat-sender">ASTRAVIA AI // TUTOR</div>
+            <div class="chat-text">
+                Greetings, explorer. I am your Astravia Space Intelligence. Inquire about planetary geology, orbital mechanics, black holes, space telescopes, or upcoming deep space missions.
+            </div>
+        </div>
+    </div>
+
+    <div class="ai-chips">
+        <button class="ai-chip" type="button">How did Saturn's rings form?</button>
+        <button class="ai-chip" type="button">Could Europa harbor life?</button>
+        <button class="ai-chip" type="button">What is orbital resonance?</button>
+        <button class="ai-chip" type="button">How massive is Olympus Mons?</button>
+    </div>
+
+    <form class="ai-input-form" id="aiInputForm">
+        <input type="text" id="aiInput" placeholder="Ask Astravia AI anything about space..." autocomplete="off" />
+        <button type="submit">TRANSMIT</button>
+    </form>
+</div>
+
+<!-- =====================================================
+     ASTRAVIA — ASTRO-ID AUTHENTICATION MODAL
+     ===================================================== -->
+<div class="astravia-modal login-modal" id="loginModal">
+    <div class="modal-header">
+        <div>
+            <span class="modal-eyebrow">CREW TELEMETRY ACCESS</span>
+            <h2>ASTRO-ID LOGIN</h2>
+        </div>
+        <button class="modal-close" data-close-modal="loginModal" type="button">×</button>
+    </div>
+
+    <div class="auth-form-wrap">
+        <p class="auth-subtitle">Synchronize your exploration logs, custom orbital presets, and deep space observations.</p>
+        <div class="auth-input-group">
+            <label>CALLSIGN / ASTRO-ID</label>
+            <input type="text" placeholder="ASTRO-7749" />
+        </div>
+        <div class="auth-input-group">
+            <label>ENCRYPTION KEY</label>
+            <input type="password" placeholder="••••••••••••" />
+        </div>
+        <button class="auth-submit-btn" type="button">ESTABLISH UPLINK</button>
+        <div class="auth-guest">CONTINUE AS GUEST EXPLORER</div>
+    </div>
+</div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <div>SCROLL TO EXPLORE</div>
+        </div>
+
+        <!-- Active Planet Information has transitioned to .left-hero-container .planet-info-panel -->
+
+        <!-- =====================================================
+             ASTRAVIA — PLANET EXPEDITION DOSSIER MODAL
+             ===================================================== -->
+        <div class="planet-dossier" id="planetDossier">
+            <div class="dossier-header">
+                <div>
+                    <span class="dossier-eyebrow" id="dossierSystemId">ORBITAL SYSTEM / 01</span>
+                    <h2 id="dossierTitle">EARTH</h2>
+                </div>
+                <button class="dossier-close" id="dossierClose" type="button">×</button>
+            </div>
+
+            <div class="dossier-tabs">
+                <button class="dossier-tab active" data-planet-select="EARTH" type="button">EARTH</button>
+                <button class="dossier-tab" data-planet-select="MARS" type="button">MARS</button>
+                <button class="dossier-tab" data-planet-select="JUPITER" type="button">JUPITER</button>
+                <button class="dossier-tab" data-planet-select="SATURN" type="button">SATURN</button>
+            </div>
+
+            <div class="dossier-content" id="dossierContent">
+                <!-- Dynamically populated educational sections -->
+            </div>
+        </div>
+
+        <div class="system-status">
+            <div class="status-dot"></div>
+
+            <div>
+                ORBITAL SYSTEM
+                <strong id="statusPlanet">EARTH // ACTIVE</strong>
+            </div>
+        </div>
+
+        <div class="side-label">
+            <span>ASTRAVIA</span>
+            <span>DEEP SPACE EXPLORATION</span>
+        </div>
+
+        <div class="vignette"></div>
+
+    </div>
+
+ 
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "name": "Space Events Update",
+  "trigger": "cron",
+  "cron": "0 6 * * *",
+  "steps":
+  
+  [
+    {
+      "name": "Fetch APOD",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api.nasa.gov/planetary/apod",
+        "method": "GET",
+        "queryParameters": {
+          "api_key": "={{$env.VITE_NASA_API_KEY}}"
+        }
+      }
+    },
+    {
+      "name": "Fetch NEO Feed",
+      "type": "httpRequest",
+      "parameters": {
+        "url": "https://api.nasa.gov/neo/rest/v1/feed",
+        "method": "GET",
+        "queryParameters": {
+          "start_date": "={{$today.startOf('day').format('YYYY-MM-DD')}}",
+          "end_date": "={{$today.endOf('day').format('YYYY-MM-DD')}}",
+          "api_key": "={{$env.VITE_NASA_API_KEY}}"
+        }
+      }
+    },
+    {
+      "name": "Transform and Save",
+      "type": "function",
+      "code": "// Transform and save APOD to Supabase\nreturn [{\n  json: {\n    title: $node[\"Fetch APOD\"].json.title,\n    event_type: 'apod',\n    description: $node[\"Fetch APOD\"].json.explanation,\n    event_date: new Date($node[\"Fetch APOD\"].json.date),\n    source_url: $node[\"Fetch APOD\"].json.url,\n    updated_at: new Date().toISOString()\n  }\n}, {\n  json: {\n    event_type: 'neo',\n    title: `${$node[\"Fetch NEO Feed\"].json.count} Near Earth Objects`,\n    description: `NEOs between ${$node[\"Fetch NEO Feed\"].json.start_date} and ${$node[\"Fetch NEO Feed\"].json.end_date}`,\n    event_date: new Date(),\n    source_url: null,\n    updated_at: new Date().toISOString()\n  }\n}]\n}"
+    },
+    {
+      "name": "Save to Supabase",
+      "type": "supabase",
+      "parameters": {
+        "operation": "upsert",
+        "table": "celestial_events"
+      }
+    }
+  ]
+}
